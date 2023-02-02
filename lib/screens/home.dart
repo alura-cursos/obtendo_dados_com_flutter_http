@@ -34,10 +34,10 @@ class _HomeState extends State<Home> {
             final filmes = snapshot.data as List<Filme>;
             return ListaFilmes(filmes: filmes);
           } else if (snapshot.hasError) {
-            return const Center(
+            return Center(
               child: Text(
-                'Ops, ocorreu um erro!',
-                style: TextStyle(
+                snapshot.error.toString(),
+                style: const TextStyle(
                   fontSize: 16,
                 ),
               ),

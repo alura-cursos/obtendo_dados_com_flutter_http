@@ -4,13 +4,14 @@ import '../models/filme.dart';
 
 Future<List<Filme>> getFilmes() async {
   final response = await http.get(Uri.parse(
-      'https://gist.githubusercontent.com/jhoisz/1eb7e9a3cb6466c44d51bdb28da9d56b/raw/a95829716428dc7ed7b5a7ae2952777251b7819c/filmes_studio_ghibli.json'));
+      'https://raw.githubusercontent.com/alura-cursos/obtendo_dados_com_flutter_http/main/filmes.json'));
 
-  print(response.body);
-
-  final json = jsonDecode(response.body);
-
-  return List<Filme>.from(json.map((elemento) {
-    return Filme.fromJson(elemento);
-  }));
+  if (response.statusCode == 200) {
+    final json = jsonDecode(response.body);
+    return List<Filme>.from(json.map((elemento) {
+      return Filme.fromJson(elemento);
+    }));
+  } else {
+    return Future.error("Ops! Um erro ocorreu.");
+  }
 }
